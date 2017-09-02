@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: k8s-cleanup
+  namespace: kube-system
+spec:
+  template:
+    metadata:
+      labels:
+        app: k8s-cleanup
+    spec:
+      volumes:
+        - name: dockersocket
+          hostPath:
+            path: /var/run/docker.sock
+      containers:
+      - name: k8s-cleanup
+        image: onfido/k8s-cleanup
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+        volumeMounts:
+          - name: dockersocket
+            mountPath: /var/run/docker.sock

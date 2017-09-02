@@ -1,0 +1,35 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: k8s-cleanup
+  namespace: kube-system
+spec:
+  schedule: "0 */4 * * *"
+  concurrencyPolicy: "Forbid"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name: k8s-cleanup
+          annotations:
+            scheduler.alpha.kubernetes.io/tolerations: |
+              [
+                {
+                  "key": "dedicated",
+                  "operator": "Equal",
+                  "value": "master",
+                  "effect": "NoSchedule"
+                }
+              ]
+        spec:
+          nodeSelector:
+            kubernetes.io/role: master
+          restartPolicy: OnFailure
+          containers:
+            - name: k8s-cleanup
+              image: onfido/k8s-cleanup
+              command: ["/bin/bash", "/bin/k8s-clean.sh"]
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 50Mi
