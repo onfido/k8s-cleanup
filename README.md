@@ -1,6 +1,6 @@
 ## k8s-cleanup
 
-Cleans up exited containers and dangling images/volumes running as a DaemonSet (`deploy-ds.yml`) and cleans up old replica sets and jobs as a CronJob (`deploy-cron.yml`).
+Cleans up exited containers and dangling images/volumes running as a DaemonSet (`deploy-ds.yml`) and cleans up old replica sets and finished jobs as a CronJob (`deploy-cron.yml`).
 
 You must have `batch/v2alpha1` enabled on your k8s API server runtime config in order to run the CronJob.
 
