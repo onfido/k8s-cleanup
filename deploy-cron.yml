@@ -29,6 +29,7 @@ spec:
             - name: k8s-cleanup
               image: onfido/k8s-cleanup
               command: ["/bin/bash", "/bin/k8s-clean.sh"]
+              imagePullPolicy: Always
               resources:
                 requests:
                   cpu: 100m
