@@ -15,8 +15,8 @@ for rs in $emptyReplicaSets; do
   kubectl -n $namespace delete rs $replicaSet;
 done
 
-# Get jobs older than 1h
-finishedJobs=$(kubectl get jobs --all-namespaces | awk '$5 ~ /h|d/ {print $1 "|" $2}')
+# Get finished jobs older than 1h
+finishedJobs=$(kubectl get jobs --all-namespaces | awk 'IF $4 == 1 && $5 ~ /h|d/ {print $1 "|" $2}')
 
 # Loop through jobs and delete them
 for job in $finishedJobs; do
