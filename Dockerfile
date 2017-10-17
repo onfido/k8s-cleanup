@@ -1,7 +1,7 @@
 FROM alpine:3.6
 
 ENV ETCD_VERSION 3.1.4
-ENV KUBE_VERSION 1.6.2
+ENV KUBE_VERSION 1.7.8
 
 RUN apk add --update bash curl docker \
     && rm -rf /var/cache/apk/*
