@@ -1,9 +1,14 @@
+---
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
   name: k8s-cleanup
   namespace: kube-system
 spec:
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 10%
   template:
     metadata:
       labels:

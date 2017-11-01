@@ -1,3 +1,4 @@
+---
 apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
@@ -19,7 +20,6 @@ spec:
           - effect: NoSchedule
             key: node-role.kubernetes.io/master
           restartPolicy: OnFailure
-          serviceAccountName: k8s-cleanup
           containers:
           - name: k8s-cleanup
             image: onfido/k8s-cleanup
