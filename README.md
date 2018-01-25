@@ -2,7 +2,7 @@
 
 Here are 3 cleanups you can apply on your kubernetes cluster:
 * Cleans up exited containers and dangling images/volumes running as a DaemonSet (`docker-clean.yml`).
-* Cleans up old replica sets and finished jobs as a CronJob (`k8s-clean.yml`).
+* Cleans up old replica sets, finished jobs and unrecycled evicted pods as a CronJob (`k8s-clean.yml`).
 * Cleans up empty directory (not used anymore) in etcd as a CronJob (`etcd-empty-dir-cleanup.yml`).
 
 You must have `batch/v2alpha1` enabled on your k8s API server runtime config in order to run the CronJob.
@@ -18,5 +18,5 @@ In the CronJob (`k8s-clean.yml`) you can set `DAYS` to modify the maximum age of
 kubectl --context CONTEXT -n kube-system apply -f rbac.yml
 kubectl --context CONTEXT -n kube-system apply -f docker-clean.yml
 kubectl --context CONTEXT -n kube-system apply -f k8s-clean.yml
-kubectl --context CONTEXT -n kube-system apply -f etcd-empty-dir-cleanup.yml 
+kubectl --context CONTEXT -n kube-system apply -f etcd-empty-dir-cleanup.yml
 ```
