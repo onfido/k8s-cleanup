@@ -5,7 +5,7 @@ metadata:
   name: k8s-cleanup
   namespace: kube-system
 spec:
-  schedule: "0 */4 * * *"
+  schedule: "0 */3 * * *"
   concurrencyPolicy: "Forbid"
   jobTemplate:
     spec:
