@@ -13,6 +13,7 @@ emptyReplicaSets=$(kubectl get rs --all-namespaces | \
 for rs in $emptyReplicaSets; do
   IFS='|' read namespace replicaSet <<< "$rs";
   kubectl -n $namespace delete rs $replicaSet;
+  sleep 0.25
 done
 
 # Get finished jobs older than 1h
@@ -22,6 +23,7 @@ finishedJobs=$(kubectl get jobs --all-namespaces | awk 'IF $4 == 1 && $5 ~ /h|d/
 for job in $finishedJobs; do
   IFS='|' read namespace oldJob <<< "$job";
   kubectl -n $namespace delete job $oldJob;
+  sleep 0.25
 done
 
 # Get unrecycled evicted pods older than 1h
@@ -32,4 +34,5 @@ evictedPods=$(kubectl get pods --all-namespaces -a | grep 'Evicted' | \
 for pod in $evictedPods; do
   IFS='|' read namespace evictedPod <<< "$pod";
   kubectl -n $namespace delete pod $evictedPod;
+  sleep 0.25
 done
