@@ -2,11 +2,11 @@
 
 while true; do
   # Remove exited containers
-  docker rm -v $(docker ps -a -q -f status=exited)
+  docker ps -a -q -f status=exited    | xargs --no-run-if-empty docker rm -v
   # Remove dangling images
-  docker rmi $(docker images -f "dangling=true" -q)
+  docker images -f "dangling=true" -q | xargs --no-run-if-empty docker rmi
   # Remove dangling volumes
-  docker volume rm $(docker volume ls -qf dangling=true)
+  docker volume ls -qf dangling=true  | xargs --no-run-if-empty docker volume rm
 
   # DOCKER_CLEAN_INTERVAL defaults to 30min
   sleep $DOCKER_CLEAN_INTERVAL
