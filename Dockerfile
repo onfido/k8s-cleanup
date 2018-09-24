@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine
 
 ENV ETCD_VERSION 3.1.4
 ENV KUBE_VERSION 1.7.8
