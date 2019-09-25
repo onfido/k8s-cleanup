@@ -27,7 +27,7 @@ for job in $finishedJobs; do
 done
 
 # Get unrecycled evicted pods older than 1h
-evictedPods=$(kubectl get pods --all-namespaces -a | grep 'Evicted' | \
+evictedPods=$(kubectl get pods --all-namespaces | grep 'Evicted' | \
   awk 'IF $6 ~ /h|d/ {print $1 "|" $2}')
 
 # Loop through evicted pods and delete them
